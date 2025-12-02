@@ -1,5 +1,6 @@
 package expense_tracker.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,11 @@ public class ExpenseService {
 		exprepo.findById(id).orElseThrow(()->new RuntimeException("Expense Not Found"));
 		exprepo.deleteById(id);
 		return id+" Expense Got deleted";
+	}
+	
+	public Double totalExpenses(Long id,LocalDate fromDate) {
+		List<Expenses> list= exprepo.findByUsers_Id(id);
+		if(list==null) return 0.0;
+		return exprepo.totalExpense(id, fromDate);
 	}
 }

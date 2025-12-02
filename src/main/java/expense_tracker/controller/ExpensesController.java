@@ -1,5 +1,6 @@
 package expense_tracker.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import expense_tracker.model.Expenses;
@@ -58,6 +60,15 @@ public class ExpensesController {
 		return new ResponseEntity<>(exp,HttpStatus.OK);
 		
 	}
+	
+	@GetMapping("/totalexp")
+	public ResponseEntity<?> deleteExp(@RequestParam Long id,@RequestParam String fromDate){
+		LocalDate date=LocalDate.parse(fromDate);
+		Double totalExpenses = expservice.totalExpenses(id, date);
+		return new ResponseEntity<>(totalExpenses,HttpStatus.OK);
+		
+	}
+	
 	
 
 }
